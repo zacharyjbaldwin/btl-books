@@ -1,0 +1,64 @@
+<div style="padding:1rem">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Add address</h4>
+      <hr>
+    </div>
+  </div>
+  <form [formGroup]="addressForm" (ngSubmit)="add()">
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">First name *</label>
+          <input type="text" class="form-control" formControlName="firstname" required>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label">Last name *</label>
+          <input type="text" class="form-control" formControlName="lastname" required>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label">Address line 1 *</label>
+          <input type="text" class="form-control" formControlName="addrLine1" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Address line 2</label>
+          <input type="text" class="form-control" formControlName="addrLine2">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">City *</label>
+          <input type="text" class="form-control" formControlName="city" required>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">State *</label>
+          <input type="text" class="form-control" formControlName="state" required>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">Zip code *</label>
+          <input type="number" class="form-control" formControlName="zip" required min="10000" max="99999">
+        </div>
+      </div>
+    </div>
+
+    <span class="form-text text-muted">* denotes a required field</span>
+    <p class="form-text" style="color:red;" *ngIf="addressForm.invalid && addressForm.touched">One or more form fields are invalid!</p>
+
+    <button [disabled]="addressForm.invalid" type="submit" class="mt-3 btn btn-success" style="width:100%">Add address</button>
+  </form>
+
+
+</div>

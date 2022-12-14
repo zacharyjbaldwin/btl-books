@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <h4>Sign up</h4>
+
+    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label class="form-label">First name</label>
+          <input type="text" class="form-control" formControlName="firstname" required>
+          <span class="form-text error-message" *ngIf="signupForm.get('firstname')!.invalid && signupForm.get('firstname')!.touched">First name is required.</span>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Last name</label>
+          <input type="text" class="form-control" formControlName="lastname" required>
+          <span class="form-text error-message" *ngIf="signupForm.get('lastname')!.invalid && signupForm.get('lastname')!.touched">Last name is required.</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" required>
+          <span class="form-text error-message" *ngIf="signupForm.get('email')!.invalid && signupForm.get('email')!.touched">Email is required.</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" required>
+          <span class="form-text error-message" *ngIf="signupForm.get('password')!.invalid && signupForm.get('password')!.touched">Password is required.</span>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <button [disabled]="signupForm.invalid" type="submit" class="btn btn-success full-width">Sign up</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+          <a [routerLink]="['/login']">Log in instead</a>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

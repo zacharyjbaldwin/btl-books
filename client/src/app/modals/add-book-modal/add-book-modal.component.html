@@ -1,0 +1,88 @@
+<div style="padding: 16px">
+  <div class="d-flex justify-content-between">
+    <h4>{{ book ? 'Edit book' : 'Add book' }}</h4>
+    <i class="fa fa-times cursor-pointer" style="font-size: 24px; color: grey" (click)="closeModal()"></i>
+  </div>
+  <form [formGroup]="addBookForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">Title *</label>
+          <input type="text" class="form-control" formControlName="title" required>
+          <span class="form-text error-message" *ngIf="addBookForm.get('title')!.invalid && addBookForm.get('title')!.touched">Title is required.</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">Author *</label>
+          <input type="text" class="form-control" formControlName="author" required>
+          <span class="form-text error-message" *ngIf="addBookForm.get('author')!.invalid && addBookForm.get('author')!.touched">Author is required.</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">Genre *</label>
+          <input type="text" class="form-control" formControlName="genre" required>
+          <span class="form-text error-message" *ngIf="addBookForm.get('genre')!.invalid && addBookForm.get('genre')!.touched">Genre is required.</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label">Short Summary *</label>
+          <textarea rows="4" class="form-control" formControlName="summary" (input)="calculateLength()"></textarea>
+          <span class="form-text" [ngClass]="{ 'error-message': addBookForm.get('summary')!.invalid && addBookForm.get('summary')!.touched }">Characters: {{ summaryLength }} / 500</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">ISBN (10 or 13 digits) *</label>
+          <!-- pattern="\d{13}" -->
+          <input type="number" class="form-control" formControlName="isbn13" required min="1000000000" max="9999999999999">
+          <span class="form-text error-message" *ngIf="addBookForm.get('isbn13')!.invalid && addBookForm.get('isbn13')!.touched">Field must be a 10-digit or 13-digit number with no dashes or spaces.</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">Price *</label>
+          <input type="number" class="form-control" formControlName="price" required min="1">
+          <span class="form-text error-message" *ngIf="addBookForm.get('price')!.invalid && addBookForm.get('price')!.touched">Price must be a number greater than 0.</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label class="form-label">Quantity in Stock *</label>
+          <input type="number" class="form-control" formControlName="quantityInStock" required min="0">
+          <span class="form-text error-message" *ngIf="addBookForm.get('quantityInStock')!.invalid && addBookForm.get('quantityInStock')!.touched">Quantity in stock must be a number equal to or greater than 0.</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label class="form-label">Image URL * (must end in '.jpg', '.jpeg', or '.png')</label>
+          <!-- pattern="https?:\/\/.+\.(png|jpg|jpeg)" -->
+          <input type="text" class="form-control" formControlName="imageUrl" required placeholder="https://www.example.com/cover.png">
+          <div class="d-flex flex-column">
+            <span class="form-text error-message" *ngIf="gbsBook">Note: the Google Books API tends to return poor quality thumbnails. Please find a good quality thumbnail image before submitting.</span>
+            <span class="form-text error-message" *ngIf="addBookForm.get('imageUrl')!.invalid && addBookForm.get('imageUrl')!.touched">Image URL is required, must begin with 'http://' or 'https://', and must end in '.jpg', '.jpeg', or '.png'.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <span class="form-text muted mb-3">* denotes a required field</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button [disabled]="addBookForm.invalid" type="submit" class="btn btn-success full-width">{{ book ? 'Update' : 'Add' }}</button>
+      </div>
+    </div>
+
+  </form>
+</div>

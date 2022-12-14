@@ -1,0 +1,21 @@
+<h4>ORDER HISTORY</h4>
+<div class="d-flex justify-content-center" *ngIf="loading">
+  <loading-spinner></loading-spinner>
+</div>
+<div *ngIf="!loading">
+  <div style="max-height: 80vh; overflow-y: auto">
+    <div class="d-flex flex-column" style="gap: 30px; margin-top: 60px;">
+  
+      <div class="d-flex justify-content-between" *ngFor="let order of orders">
+        <div class="d-flex flex-column">
+          <span *ngIf="production">Order <a class="a-red" target="_blank" href="https://www.btl-books.com/invoice/{{ order._id }}">{{ order._id }}</a></span>
+          <span *ngIf="!production">Order <a class="a-red" target="_blank" href="http://localhost:4200/invoice/{{ order._id }}">{{ order._id }}</a></span>
+          <span class="text-muted">{{ order.timestamp | date:'medium'}}</span>
+          <span class="text-muted">{{ order.totalPrice | currency:'USD' }}</span>
+        </div>
+        <span class="text-muted">{{ status[order.status] }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+

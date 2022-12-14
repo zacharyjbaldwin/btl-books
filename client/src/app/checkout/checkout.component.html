@@ -1,0 +1,190 @@
+<div class="row">
+  <div *ngIf="currentPage =='shipping'" class="col-md-6 offset-md-3 d-flex flex-column" style="gap:32px;">
+    <div>
+      <h3>SHIPPING</h3>
+      <p>
+        Orders require 3 business days to ship, but fulfillment times may vary during peak periods (holidays, special promotions, and other events).
+        <br>
+        Once your order is placed, we are unable to change your shipping address.
+      </p>
+      <div class="d-flex flex-column" style="gap: 32px">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center" style="gap: 12px">
+            <input type="radio" (input)="selectedInput()">
+            <div class="d-flex flex-column">
+              <label class="form-label">
+                Standard Shipping (delivery in 3 days)
+              </label>
+              <span class="text-muted">Estimated delivery:</span>
+              <span class="text-muted">{{ deliveryStandard | date:'shortDate' }}</span>
+            </div>
+          </div>
+          <div>$5.00</div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center" style="gap: 12px">
+            <input type="radio" disabled>
+            <div class="d-flex flex-column">
+              <label class="form-label">
+                Express Shipping
+              </label>
+              <span class="text-muted">Currently unavailable</span>
+            </div>
+          </div>
+          <div>$8.99</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h5>SHIP TO</h5>
+      <form [formGroup]="selectAddressForm" (ngSubmit)="selectAddress()">
+        <select formControlName="address" class="form-select" (input)="selectedAddress = true;">
+          <option selected disabled>Select Address</option>
+          <option *ngFor="let address of addresses" value="{{ address._id }}">{{ address.sendTo }} - {{ address.addrLine1 }}, {{ address.addrLine2 ? address.addrLine2 + ',' : '' }} {{ address.city }} {{ address.state }}, {{ address.zip }}</option>
+        </select>
+        <a (click)="openAddAddressModal()" type="button" class="a-fix" style="color: #FE4487;">+ Add new address</a>
+        <button type="submit" class="btn btn-dark" style="margin-top: 12px; border-radius: 0px; width: 100%;" [disabled]="!selectedShippingSpeed || !selectedAddress">Proceed to payment</button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="currentPage == 'card'" class="col-md-6 offset-md-3 d-flex flex-column" style="gap:32px;">
+    <div>
+      <h4>PAYMENT</h4>
+      <p>Please enter your card details in the form below to complete your purchase.</p>
+      <p style="color:red">Note: Since no products will actually be shipped out, you can enter any numbers in this form as long as they meet the format requirements.</p>
+    </div>
+    <div>
+      <h6>CARD DETAILS</h6>
+      <form [formGroup]="paymentForm" (ngSubmit)="goToReview()">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">First name *</label>
+            <input class="form-control" type="text" formControlName="firstname" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Last name *</label>
+            <input class="form-control" type="text" formControlName="lastname" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label class="form-label">Card type *</label>
+            <select formControlName="cardType" class="form-select" required>
+              <option value="0">VISA</option>
+              <option value="1">MasterCard</option>
+              <option value="2">Discover</option>
+              <option value="3">Amex</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Card number (16 digits) *</label>
+            <input class="form-control" type="number" formControlName="cardNumber" required minlength="16" maxlength="16">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">CVV (3 digits) *</label>
+            <input class="form-control" type="number" formControlName="cvv" required minlength="3" maxlength="3">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Expiration month *</label>
+            <select formControlName="expireMonth" class="form-select" required>
+              <option value="january">01 - January</option>
+              <option value="febuary">02 - February</option>
+              <option value="march">03 - March</option>
+              <option value="april">04 - April</option>
+              <option value="may">05 - May</option>
+              <option value="june">06 - June</option>
+              <option value="july">07 - July</option>
+              <option value="august">08 - August</option>
+              <option value="september">09 - September</option>
+              <option value="october">10 - October</option>
+              <option value="november">11 - November</option>
+              <option value="december">12 - December</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Expiration year (4 digits) *</label>
+            <input type="number" formControlName="expireYear" class="form-control" required minlength="4" maxlength="4">
+          </div>
+        </div>
+        <span class="form-text text-muted">* denotes a required field</span>
+        <p class="form-text" style="color:red;" *ngIf="paymentForm.invalid && paymentForm.touched">One or more form fields are invalid!</p>
+        <button type="submit" [disabled]="paymentForm.invalid" class="btn btn-dark mt-3" style="border-radius: 0px; width:100%">Review order</button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="currentPage == 'review'" class="col-md-6 offset-md-3" style="gap:32px;">
+    <div>
+      <h4>REVIEW ORDER</h4>
+      <div class="">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Book Name</th>
+              <th>Price (each)</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let book of cartContents">
+              <td>{{ book.title }}</td>
+              <td>{{ book.price | currency:'USD' }}</td>
+              <td>{{ book.quantity }}</td>
+              <td>{{ book.priceAll | currency:'USD' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <h5>Payment details</h5>
+          <div class="d-flex justify-content-start" style="gap:16px;">
+            <div class="d-flex flex-column align-items-end">
+              <span><strong>Cart type</strong></span>
+              <span><strong>Card number</strong></span>
+              <span><strong>Subtotal</strong></span>
+              <span><strong>Shipping Rate</strong></span>
+              <span><strong>Tax</strong></span>
+              <span><strong>Total Price</strong></span>
+            </div>
+            <div class="d-flex flex-column align-items-start">
+              <span>{{ cardTypeNames[cardType] }}</span>
+              <span>XXXXXXXXXXXX{{ last4CardDigits }}</span>
+              <span>{{ subtotal | currency:'USD'}}</span>
+              <span>{{ shippingPrice | currency:'USD' }} Standard shipping</span>
+              <span>{{ tax | currency:'USD' }}</span>
+              <span>{{ totalPrice | currency:'USD' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h5>Shipping details</h5>
+          <div class="d-flex justify-content-start" style="gap: 16px">
+            <span><strong>Ship to</strong></span>
+            <div class="d-flex flex-column">
+              <span>{{ addressByAddressId.sendTo }}</span>
+              <span>{{ addressByAddressId.addrLine1 }}</span>
+              <span *ngIf="addressByAddressId.addrLine2">{{ addressByAddressId.addrLine2 }}</span>
+              <span>{{ addressByAddressId.city }}, {{ addressByAddressId.state }} {{ addressByAddressId.zip }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button (click)="placeOrder()" class="btn btn-dark mt-3" style="border-radius: 0px; width:100%">Place order</button>
+    </div>
+  </div>
+  <div *ngIf="currentPage == 'loading'">
+    <div class="d-flex justify-content-center">
+      <loading-spinner></loading-spinner>
+    </div>
+  </div>
+  <div *ngIf="currentPage == 'success'">
+    <div class="d-flex justify-content-center flex-column align-items-center" style="gap: 12px;">
+      <h3>Thank you!</h3>
+      <span>Your order has been confirmed. You will receive an invoice email shortly.</span>
+      <a [routerLink]="['/']">Back to catalog</a>
+    </div>
+  </div>
+</div>

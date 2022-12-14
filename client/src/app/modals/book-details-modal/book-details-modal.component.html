@@ -1,0 +1,41 @@
+<div style="padding: 12px">
+    <div class="row">
+        <div class="col-md-4 d-flex justify-content-center">
+          <img [src]="book.imageUrl" class="modal-img">
+        </div>
+        <div class="col-md-8 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between">
+              <h4>{{ book.title }}</h4>
+              <i class="fa fa-times cursor-pointer close-button" (click)="closeModal()"></i>
+            </div>
+            <p class="grey-text">by {{ book.author }}</p>
+            <p>{{ book.summary ? book.summary : 'No summary available.' }}</p>
+            <div class="row">
+              <div class="col-md-6">
+                <p>
+                  Genre: {{ book.genre ? book.genre : 'No genre available.' }}
+                  <br>
+                  ISBN: {{ book.isbn13 ? book.isbn13 : 'No ISBN available.' }}
+                </p>
+              </div>
+              <div class="col-md-6">
+                <p>
+                  Price: {{ book.price ? (book.price | currency: 'USD')  : 'Unavailable' }}
+                  <br>
+                  # in stock: {{ book.quantityInStock }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-light full-width" *ngIf="book.quantityInStock < 1" disabled>
+              <i class="fa fa-ban"></i> Currently out of stock
+            </button>
+            <button class="btn btn-light full-width" *ngIf="book.quantityInStock >= 1" (click)="addToCart(book._id!)">
+              <i class="fa fa-cart-plus"></i> Add to cart
+            </button>
+          </div>
+        </div>
+    </div>
+</div>

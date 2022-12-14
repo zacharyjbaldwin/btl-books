@@ -1,0 +1,50 @@
+<div style="padding: 1rem">
+  <h4>Add Book with Google Books API</h4>
+  <form [formGroup]="searchBookForm" (ngSubmit)="onSearch()">
+    <div class="mb-3">
+      <label class="form-label">Search query *</label>
+      <!-- <input type="number" class="form-control" formControlName="isbn13" min="1000000000000" max="9999999999999"> -->
+      <input type="text" class="form-control" formControlName="title">
+    </div>
+    <div class="mb-3">
+      <button [disabled]="searchBookForm.invalid" class="btn btn-success" type="submit" style="width: 100%;">Search</button>
+    </div>
+  </form>
+  <div>
+    <div *ngIf="loading; else showOther" class="d-flex justify-content-center">
+      <loading-spinner></loading-spinner>
+    </div>
+    <ng-template #showOther>
+      <ng-container *ngIf="performedSearch && foundBooks.length > 0; else errorMessage">
+        <hr>
+        <!-- <span style="color: red;">Note: The Google Books API tends to yield poor quality thumbnails. Please find a better quality thumbnail if you wish to add a book.</span> -->
+        <h6>Search Results (most relevant result shown first)</h6>
+
+        <div class="overflow-y">
+          <div class="list-group">
+            <div *ngFor="let book of foundBooks" class="list-group-item">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex" style="gap: 12px;">
+                  <img [src]="book.thumbnailUrl" style="max-height: 100px;">
+                  <div class="d-flex flex-column">
+                    <span>{{ book.title }}</span>
+                    <span class="text-muted">{{ book.author ? book.author : '' }}</span>
+                    <span class="text-muted">{{ book.isbn ? 'ISBN: ' + book.isbn : '' }}</span>
+                    <span class="text-muted">{{ book.suggestedPrice ? 'Suggested price: ' + (book.suggestedPrice | currency:'USD') : '' }}</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-primary" (click)="openMissingDetailsModal(book)"><i class="fa-solid fa-plus"></i> Add to catalog</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+      <ng-template #errorMessage>
+        <div *ngIf="showError" class="alert alert-danger">There was an error with your search query.</div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

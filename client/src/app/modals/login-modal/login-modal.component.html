@@ -1,0 +1,20 @@
+<div style="padding: 12px;">
+  <h4>Log in to add books to your cart</h4>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="my-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="email" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" required>
+    </div>
+
+    <button type="submit" class="btn btn-success full-width mb-3">Log in</button>
+
+    <div class="d-flex justify-content-center">
+      <a [routerLink]="['/signup']" (click)="hideModal()">Don't have an account?</a>
+    </div>
+  </form>
+</div>

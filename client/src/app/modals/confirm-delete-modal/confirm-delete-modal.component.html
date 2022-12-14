@@ -1,0 +1,9 @@
+<div style="padding: 12px">
+  <h4>Are you sure?</h4>
+  <span>Are you sure you want to delete {{ title }}?</span>
+
+  <div class="d-flex justify-content-end mt-3" style="gap: 12px;">
+    <button class="btn btn-light" (click)="no()">Cancel</button>
+    <button class="btn btn-danger" (click)="yes()">Confirm</button>
+  </div>
+</div>

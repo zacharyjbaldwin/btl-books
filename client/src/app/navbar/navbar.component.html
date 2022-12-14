@@ -1,0 +1,10 @@
+<div class="navbar bg-1">
+  <div class="container justify-content-between">
+    <a [routerLink]="['/']" class="nav-brand">Between The Lines</a>
+    <div class="nav-items d-flex" style="gap: 48px;">
+      <a [routerLink]="['/admin']" *ngIf="showAdminLink"><i class="fa-solid fa-lock"></i> Admin</a>
+      <a [routerLink]="['/cart']" class=""><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+      <a [routerLink]="['/account']" class=""><i class="fa-solid fa-user"></i> Account</a>
+    </div>
+  </div>
+</div>

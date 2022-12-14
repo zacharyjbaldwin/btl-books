@@ -1,0 +1,5 @@
+@import "../../utilities.scss";
+
+input.ng-touched.ng-invalid {
+  border-color: red;
+}

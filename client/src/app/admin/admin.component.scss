@@ -1,0 +1,21 @@
+@import "../../utilities.scss";
+@import "../../variables.scss";
+
+// th, td {
+//   border: 0.5px solid rgba(0, 0, 0, 0.15);
+//   // border-bottom: 1px solid black;
+//   padding: 2px 12px;
+
+//   i {
+//     font-size: 16px;
+//   }
+// }
+
+tab {
+    background-color: $background-color;
+}
+
+.overflow-y {
+  max-height: 75vh;
+  overflow-y: auto;
+}

@@ -1,0 +1,39 @@
+@import "../../utilities.scss";
+
+.title {
+  font-size: 64px;
+}
+
+.overflow-x {
+  overflow-x: auto;
+}
+
+i {
+  color: rgb(80, 80, 80);
+
+  &.fa-trash {
+    color: black;
+  }
+}
+
+.cart-table {
+  width: 100%;
+
+  th, td {
+    padding: 8px;
+  }
+
+  thead tr {
+    background-color: #D9D9D9;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #FFEBA3;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #FDEDCF;
+  }
+}
+
+

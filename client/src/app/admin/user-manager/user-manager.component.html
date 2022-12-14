@@ -1,0 +1,25 @@
+<loading-spinner *ngIf="loading"></loading-spinner>
+<div *ngIf="!loading" class="d-flex flex-column">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>User ID</th>
+        <th>Admin?</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.firstname }} {{ user.lastname }}</td>
+        <td>{{ user._id }}</td>
+        <td>{{ user.isAdmin ? 'Yes' : 'No'}}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" style="width:100%" *ngIf="user.isAdmin" (click)="demote(user._id)">Demote</button>
+          <button class="btn btn-sm btn-success" style="width:100%" *ngIf="!user.isAdmin" (click)="promote(user._id)">Promote</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

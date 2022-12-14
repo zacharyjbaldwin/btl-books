@@ -1,0 +1,28 @@
+<div class="row big-container">
+  <div class="col-md-5 offset-md-1 d-flex flex-column justify-content-center">
+    <span class="hello-message">Hello {{firstname}}</span>
+    <div style="margin-top: 75px;">
+      <div>
+        <a type="button" class="nav-button" (click)="show('profile')" [ngClass]="{ 'active': page == 'profile' }">PROFILE</a>
+      </div>
+      <div>
+        <a type="button" class="nav-button" (click)="show('order-history')" [ngClass]="{ 'active': page == 'order-history' }">ORDER HISTORY</a>
+      </div>
+      <div>
+        <a type="button" class="nav-button" (click)="show('address')" [ngClass]="{ 'active': page == 'address' }">ADDRESSES</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5 d-flex flex-column justify-content-center">
+    <hr>
+    <div *ngIf="page == 'profile'">
+      <profile></profile>
+    </div>
+    <div *ngIf="page == 'order-history'">
+      <order-history></order-history>
+    </div>
+    <div *ngIf="page == 'address'">
+      <address-view></address-view>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3>Filters</h3>
+      <i class="fa fa-filter" style="font-size: 28px;"></i>
+    </div>
+    <hr>
+
+    <div class="mb-3">
+      <input [(ngModel)]="searchQuery" type="text" class="form-control" placeholder="Search..." (input)="updateFilters()">
+      <span class="form-text muted">Search by title, author, genre, or ISBN.</span>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Filter by Availability</label>
+      <div>
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="inStockOnly" (change)="updateFilters()">
+          In Stock
+        </label>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Filter by Genre</label>
+      <select class="form-select" [(ngModel)]="genre" (change)="updateFilters()">
+        <option>All</option>
+        <option *ngFor="let genre of genres.sort()">{{ genre }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Filter by Price (USD)</label>
+      <div class="row">
+        <div class="col-sm-6">
+          <input type="number" min="0" class="form-control" placeholder="Min" [(ngModel)]="priceMin" (change)="updateFilters()">
+        </div>
+        <div class="col-sm-6">
+          <input type="number" min="1" class="form-control" placeholder="Max" [(ngModel)]="priceMax" (change)="updateFilters()">
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <button type="button" class="btn btn-light full-width" (click)="clearFilters()">
+        <i class="fa fa-times"></i>
+        Clear Filters</button>
+    </div>
+
+  </div>
+  <div class="col-md-9">
+    <div class="row">
+      <div class="d-flex justify-content-between">
+        <h3>Books</h3>
+        <div *ngIf="totalBookCount > booksPerPage" class="d-flex justify-content-center">
+          <pagination [itemsPerPage]="booksPerPage" [totalItems]="totalBookCount" [boundaryLinks]="false" (pageChanged)="changePage($event)"></pagination>
+        </div>
+      </div>
+      <div *ngIf="booksLoading" class="d-flex justify-content-center">
+        <loading-spinner></loading-spinner>
+      </div>
+      <ng-container *ngIf="!booksLoading">
+        <ng-container *ngIf="books.length > 0; else noBooks">
+          <div class="col-lg-3 col-md-6 mb-3" *ngFor="let book of books; let i = index">
+            <div class="book-card d-flex flex-column align-items-center justify-content-between">
+              <img class="cover-image mb-1" [src]="book.imageUrl">
+              <span class="title">{{ book.title }}</span>
+              <span class="author">{{ book.author }}</span>
+
+              <div class="d-flex gap-16px mt-1">
+                <button class="btn btn-light btn-sm" (click)="viewDetails(i)">
+                  <i class="fa fa-eye"></i> View
+                </button>
+                <button class="btn btn-light btn-sm" *ngIf="book.quantityInStock < 1" disabled>
+                  <i class="fa fa-ban"></i> Out of stock
+                </button>
+                <button class="btn btn-light btn-sm" *ngIf="book.quantityInStock >= 1" (click)="addToCart(book._id!)">
+                  <i class="fa fa-cart-plus"></i> Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noBooks>
+          <div class="d-flex justify-content-center">
+            <div *ngIf="loadingErrorMessage; else noResults">
+              <div class="alert alert-danger">{{ loadingErrorMessage }}</div>
+            </div>
+            <ng-template #noResults>
+              No results.
+            </ng-template>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

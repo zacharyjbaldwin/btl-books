@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <div *ngIf="errorMessage != ''" class="alert alert-danger">{{ errorMessage }}</div>
+    <h4>Login</h4>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="my-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email" required placeholder="jswift@example.com">
+        <span class="form-text" style="color: red;" *ngIf="loginForm.get('email')!.invalid && loginForm.get('email')!.touched">This field must be a valid email address.</span>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" formControlName="password" required placeholder="********">
+        <span class="form-text" style="color: red;" *ngIf="loginForm.get('password')!.invalid && loginForm.get('password')!.touched">This field is required.</span>
+      </div>
+      <div class="mb-3 d-flex justify-content-center">
+        <loading-spinner *ngIf="loading"></loading-spinner>
+        <button *ngIf="!loading" type="submit" class="btn btn-success full-width" [disabled]="loginForm.invalid">Log in</button>
+      </div>
+      <div class="mb-3 d-flex justify-content-center">
+        <a [routerLink]="['/signup']">Don't have an account?</a>
+      </div>
+    </form>
+  </div>
+</div>

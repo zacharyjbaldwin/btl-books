@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-center" *ngIf="loading == true">
+    <loading-spinner></loading-spinner>
+</div>
+
+<div *ngIf="loading == false && orders.length >= 1">
+    <div class="list-group overflow-y">
+        <div class="list-group-item" *ngFor="let order of orders">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column">
+                    <span *ngIf="production">Order for {{ order.sendTo }} <a class="a-red" target="_blank" [href]="'https://www.btl-books.com/invoice/' + order._id">view details</a> </span>
+                    <span *ngIf="!production">Order for {{ order.sendTo }} <a class="a-red" target="_blank" [href]="'http://localhost:4200/invoice/' + order._id">view details</a> </span>
+                    <span class="text-muted">Ship to: {{ order.city }} {{ order.state }}, {{ order.zip }}</span>
+                    <!-- <span class="text-muted">Number of items: {{ order.contents.length | number}}</span> -->
+                    <span class="text-muted">Total price: {{ order.totalPrice | currency:'USD' }}</span>
+                </div>
+
+                <div class="d-flex" style="gap: 12px" *ngIf="order.status == 0">
+                    <button class="btn btn-sm btn-primary" (click)="markAsShipped(order._id)">
+                        <i class="fa-solid fa-check"></i>
+                        Mark as Shipped
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="cancelOrder(order._id)">
+                        <i class="fa-solid fa-times"></i>
+                        Cancel Order
+                    </button>
+                </div>
+
+                <div class="d-flex" *ngIf="order.status == 1">
+                    <span class="text-muted">
+                        <i class="fa-solid fa-times"></i>
+                        Order has been canceled.
+                    </span>
+                </div>
+
+                <div class="d-flex" *ngIf="order.status == 2">
+                    <span class="text-muted">
+                        <i class="fa-solid fa-check"></i>
+                        Order has been shipped.
+                    </span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="loading == false && orders.length == 0" class="d-flex justify-content-center">
+    <span class="text-muted">No orders.</span>
+</div>

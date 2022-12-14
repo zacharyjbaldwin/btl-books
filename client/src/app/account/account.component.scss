@@ -1,0 +1,26 @@
+@import "../../utilities.scss";
+
+.hello-message {
+  font-size: 48px;
+}
+
+.nav-button {
+  font-size: 24px;
+  text-decoration-line: none;
+  color: rgb(85, 85, 85);
+  font-weight: 400;
+  user-select: none;
+
+  &:hover {
+    font-weight: 500;
+  }
+
+  &.active {
+    font-weight: 500;
+    color: black;
+  }
+}
+
+.big-container {
+  height: 80vh;
+}

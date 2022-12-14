@@ -1,0 +1,14 @@
+.a-red {
+  color: #FE4487;
+}
+
+.add-address-button {
+  color: white;
+  background-color: black;
+  padding: 12px;
+  border-radius: 0px;
+
+  &:hover {
+    background-color: lighten($color: black, $amount: 20);
+  }
+}

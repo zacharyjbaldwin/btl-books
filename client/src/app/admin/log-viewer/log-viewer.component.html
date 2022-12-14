@@ -1,0 +1,53 @@
+<!-- <p style="color:red; font-weight: bold;">I threw this UI together to test the log service. Do with it what you will.</p> -->
+
+<div class="row mt-3">
+  <div class="col-md-12">
+    <div class="d-flex justify-content-between align-items-end">
+      <div>
+        <h4>Audit logs</h4>
+      </div>
+      <div>
+        <button class="btn btn-dark" (click)="refresh()"><i class="fa-solid fa-refresh"></i></button>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <label class="form-label">Search</label>
+    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filter()">
+    <span class="form-text">Search by event type or message contents.</span>
+  </div>
+  <div class="col-md-9">
+    <ng-container *ngIf="loading; else notLoading">
+      <div class="d-flex justify-content-center">
+        <loading-spinner></loading-spinner>
+      </div>
+    </ng-container>
+    <ng-template #notLoading>
+      <div *ngIf="logs.length > 0; else noLogs">
+        <div class="overflow-y">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let log of logs">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column">
+                  <strong>{{ log.event.toUpperCase() }}</strong>
+                  <span>{{ log.message }}</span>
+                </div>
+                <div>
+                  <span class="text-muted">{{ log.timestamp  ? (log.timestamp | date:'medium') : 'No timestamp' }}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ng-template #noLogs>
+        <div class="d-flex justify-content-center">
+          <p class="text-muted">There are no logs to show.</p>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<h4>ADDRESSES</h4>
+<div class="d-flex flex-column" style="gap: 30px; margin-top: 45px;">
+  <ng-container *ngIf="loading; else showAddresses">
+    <div class="d-flex justify-content-center">
+      <loading-spinner></loading-spinner>
+    </div>
+  </ng-container>
+  <ng-template #showAddresses>
+    <div *ngIf="count > 0">
+      <div class="d-flex flex-column" style="gap:32px;">
+        <div *ngFor="let address of addresses" class="d-flex justify-content-between">
+          <div class="d-flex flex-column">
+            <!-- <span *ngIf="address.defaultAddr" class="text-muted">DEFAULT</span> -->
+            <span>{{ address.sendTo }}</span>
+            <span class="text-muted">{{ address.addrLine1 }}</span>
+            <span *ngIf="address.addrLine2" class="text-muted">{{ address.addrLine2 }}</span>
+            <span class="text-muted">{{ address.city }} {{ address.state }}, {{ address.zip }}</span>
+          </div>
+          <a type="button" class="a-red" (click)="deleteAddress(address._id!)">remove</a>
+          <!-- <a type="button" class="a-fix">edit</a> -->
+        </div>
+      </div>
+    </div>
+    <div *ngIf="count == 0">
+      <div class="d-flex justify-content-center">
+        <span>No addresses.</span>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <button class="add-address-button" (click)="openAddAddressModal()">ADD NEW ADDRESS</button>
+
+</div>

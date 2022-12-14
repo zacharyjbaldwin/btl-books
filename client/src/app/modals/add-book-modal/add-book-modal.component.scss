@@ -1,0 +1,9 @@
+@import "../../../utilities.scss";
+
+input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid {
+  border-color: red;
+}
+
+.error-message {
+  color: red;
+}

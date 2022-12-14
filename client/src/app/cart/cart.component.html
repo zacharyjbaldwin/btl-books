@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2 d-flex flex-column" style="gap: 32px;">
+    <div class="d-flex justify-content-center">
+      <span class="title">Shopping Cart</span>
+    </div>
+
+    <ng-container *ngIf="loading; else pageContent">
+      <div class="d-flex justify-content-center">
+        <loading-spinner></loading-spinner>
+      </div>
+    </ng-container>
+    <ng-template #pageContent>
+      <ng-container *ngIf="cartContents.length > 0; else emptyCart">
+        <div class="overflow-x">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Price (each)</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let book of cartContents">
+                <td>{{ book.title }}</td>
+                <td>{{ book.price | currency:'USD' }}</td>
+                <td><i class="fa-solid fa-minus cursor-pointer" (click)="setQuantity(book.id, book.quantity - 1)"></i> {{ book.quantity }} <i class="fa-solid fa-plus cursor-pointer" (click)="setQuantity(book.id, book.quantity + 1)"></i></td>
+                <td>{{ book.priceAll | currency:'USD' }}</td>
+                <td><i class="fa-solid fa-trash cursor-pointer" (click)="setQuantity(book.id, 0)"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end" style="gap:16px;">
+          <div class="d-flex flex-column align-items-end">
+            <span><strong>Subtotal</strong></span>
+            <!-- <span><strong>Shipping Rate</strong></span>
+            <span><strong>Tax</strong></span>
+            <span><strong>Total Price</strong></span> -->
+          </div>
+          <div class="d-flex flex-column align-items-start">
+            <span>{{ subtotal | currency:'USD'}}</span>
+            <!-- <span>{{ shippingPrice | currency:'USD' }} flat-rate shipping</span>
+            <span>{{ tax | currency:'USD' }}</span>
+            <span>{{ totalPrice | currency:'USD' }}</span> -->
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-light" [routerLink]="['/checkout']">Proceed to shipping details <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </ng-container>
+      <ng-template #emptyCart>
+        <div>
+          <div *ngIf="!errorMessage; else showError" class="d-flex flex-column align-items-center" style="gap:16px;">
+            <span>Your shopping cart is empty!</span>
+            <a routerLink="/">Go to the catalog</a>
+          </div>
+          <ng-template #showError>
+            <div class="alert alert-danger">{{ errorMessage }}</div>
+          </ng-template>
+        </div>
+      </ng-template>
+    </ng-template>
+
+  </div>
+</div>

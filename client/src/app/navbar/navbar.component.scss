@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+@import "../../utilities.scss";
+
+.navbar {
+  // background-color: $brand-300;
+
+  &.bg-1 {
+    background: rgb(50,40,226);
+    background: linear-gradient(90deg, rgba(50,40,226,1) 0%, rgba(194,0,173,1) 100%);
+  }
+
+  &.bg-2 {
+    background: rgb(226,124,40);
+    background: linear-gradient(90deg, rgba(226,124,40,1) 0%, rgba(0,186,194,1) 100%);
+  }
+
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  height: 60px;
+  padding: 0px 32px;
+  width: 100%;
+}
+
+.nav-brand {
+  font-size: 28px;
+  text-decoration-line: none;
+  color: white;
+
+  &:hover {
+    color: darken(white, 30%);
+  }
+}
+
+.nav-items a {
+  text-decoration-line: none;
+  font-size: 18px;
+  color: white;
+
+  &:hover {
+    color: darken(white, 30%);
+  }
+}
+

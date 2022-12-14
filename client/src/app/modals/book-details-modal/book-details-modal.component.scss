@@ -1,0 +1,16 @@
+@import "../../../utilities.scss";
+
+.grey-text {
+  color: grey;
+}
+
+.modal-img {
+  max-height: 500px;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.close-button {
+  color: grey;
+  font-size: 24px;
+}

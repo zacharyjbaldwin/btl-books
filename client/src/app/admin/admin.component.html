@@ -1,0 +1,66 @@
+<div class="row">
+  <tabset>
+    <tab>
+      <ng-template tabHeading>
+        <span>Orders <span class="badge rounded-pill text-bg-primary">{{ unreadOrders ? unreadOrders : '' }}</span></span>
+      </ng-template>
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <orders (updateUnreadCount)="updateUnreadCount($event)"></orders>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Store Manager">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <div class="d-flex" style="gap: 24px">
+            <button class="btn btn-primary" (click)="openAddBookModal()">
+              <i class="fa fa-plus"></i>
+              Add Book
+            </button>
+            <button class="btn btn-secondary" (click)="openGoogleAPIBookAddModal()">
+              <i class="fa-solid fa-plus"></i> Add Book (Google Books API)
+            </button>
+          </div>
+          <div class="overflow-y mt-3">
+            <table class="full-width table table-striped mt-3">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Author</th>
+                  <th>Genre</th>
+                  <th>ISBN</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th colspan="3">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let book of books; let i = index">
+                  <td>{{ book.title }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.genre }}</td>
+                  <td>{{ book.isbn13 }}</td>
+                  <td>{{ book.price | currency:'USD' }}</td>
+                  <td>{{ book.quantityInStock }}</td>
+                  <td><i class="fa fa-pen cursor-pointer" (click)="editBook(i)"></i></td>
+                  <td><i class="fa fa-trash cursor-pointer" (click)="deleteBook(i)"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </tab>
+    <tab heading="User Manager">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <user-manager></user-manager>
+        </div>
+      </div>
+    </tab>
+    <tab heading="Audit Logs">
+      <log-viewer></log-viewer>
+    </tab>
+  </tabset>
+</div>
