@@ -4,14 +4,13 @@ This project was created as our term project for CS 4389 at the University of Te
 
 ## Team members
 
-* Zachary Baldwin​ (frontend development, backend development)
-* Erik Rodriguez​ (backend devlopment)
-* Kiara Madeam​ (design, backend devlopment)
-* Kenny Ngo​ (backend development)
+* [Zachary Baldwin](https://github.com/zacharyjbaldwin)​ (frontend development, backend development)
+* [Erik Rodriguez](https://github.com/Tarzerk)​ (backend devlopment)
+* [Kiara Madeam​](https://github.com/kiara-aleecia) (design, backend devlopment)
+* [Kenny Ngo](https://github.com/kNgo8249)​ (backend development)
 * Lu Qi​ (frontend development)
 * Cindy Wee​ (research, design)
-* Vishnu Yarabarla (backend development)
-
+* [Vishnu Yarabarla](https://github.com/syarabarla) (backend development)
 
 ## Implementation
 
