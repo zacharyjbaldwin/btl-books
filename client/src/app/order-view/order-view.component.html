@@ -17,7 +17,7 @@
             <h4>Between The Lines</h4>
             <button class="btn btn-dark no-print" (click)="print()"><i class="fa-solid fa-print"></i> Print this page</button>
           </div>
-          <span>https://www.btl-books.com/invoice/{{ order._id }}</span>
+          <span>{{webAppUrl}}/invoice/{{ order._id }}</span>
           <hr>
         </div>
         <div class="row">
@@ -99,7 +99,7 @@
         </div>
         <div class="row mt-5">
           <div class="col-md-12 d-flex align-items-center flex-column">
-            <ngx-qrcode title="qrcode" value="https://www.btl-books.com/invoice/{{ order._id }}"></ngx-qrcode>
+            <ngx-qrcode title="qrcode" value="{{webAppUrl}}/invoice/{{ order._id }}"></ngx-qrcode>
             <span><strong>Order ID</strong> {{ order._id }}</span>
           </div>
         </div>

@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderHistoryComponent implements OnInit {
 
-  public production = environment.production;
+  public webAppUrl = environment.webAppUrl;
   public loading: boolean = true;
   public orders: OrderDTO[] = [];
   public status: string[] = ['Pending', 'Canceled', 'Shipped'];

@@ -8,8 +8,7 @@
   
       <div class="d-flex justify-content-between" *ngFor="let order of orders">
         <div class="d-flex flex-column">
-          <span *ngIf="production">Order <a class="a-red" target="_blank" href="https://www.btl-books.com/invoice/{{ order._id }}">{{ order._id }}</a></span>
-          <span *ngIf="!production">Order <a class="a-red" target="_blank" href="http://localhost:4200/invoice/{{ order._id }}">{{ order._id }}</a></span>
+          <span>Order <a class="a-red" target="_blank" href="{{webAppUrl}}/invoice/{{ order._id }}">{{ order._id }}</a></span>
           <span class="text-muted">{{ order.timestamp | date:'medium'}}</span>
           <span class="text-muted">{{ order.totalPrice | currency:'USD' }}</span>
         </div>

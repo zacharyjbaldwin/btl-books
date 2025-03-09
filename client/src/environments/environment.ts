@@ -15,7 +15,8 @@ export const environment = {
     lastname: 'lastname',
     isAdmin: 'isAdmin',
     email: 'email'
-  }
+  },
+  webAppUrl: 'http://localhost:4200'
 };
 
 /*

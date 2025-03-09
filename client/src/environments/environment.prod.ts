@@ -11,5 +11,6 @@ export const environment = {
     lastname: 'lastname',
     isAdmin: 'isAdmin',
     email: 'email'
-  }
+  },
+  webAppUrl: 'https://bookstore-6bd1d.web.app'
 };

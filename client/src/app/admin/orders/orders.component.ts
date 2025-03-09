@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrdersComponent implements OnInit {
 
-  public production: boolean = environment.production;
+  public webAppUrl = environment.webAppUrl;
   public orders: OrderDTO[] = [];
   public loading: boolean = true;
   public unreadOrders: number = 0;

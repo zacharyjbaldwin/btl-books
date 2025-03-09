@@ -7,8 +7,7 @@
         <div class="list-group-item" *ngFor="let order of orders">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-column">
-                    <span *ngIf="production">Order for {{ order.sendTo }} <a class="a-red" target="_blank" [href]="'https://www.btl-books.com/invoice/' + order._id">view details</a> </span>
-                    <span *ngIf="!production">Order for {{ order.sendTo }} <a class="a-red" target="_blank" [href]="'http://localhost:4200/invoice/' + order._id">view details</a> </span>
+                    <span>Order for {{ order.sendTo }} <a class="a-red" target="_blank" [href]="webAppUrl + '/invoice/' + order._id">view details</a> </span>
                     <span class="text-muted">Ship to: {{ order.city }} {{ order.state }}, {{ order.zip }}</span>
                     <!-- <span class="text-muted">Number of items: {{ order.contents.length | number}}</span> -->
                     <span class="text-muted">Total price: {{ order.totalPrice | currency:'USD' }}</span>

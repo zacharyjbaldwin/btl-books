@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Order, OrderDTO } from '../models/order.model';
 import { OrderService } from '../services/order.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order-view',
@@ -16,6 +17,7 @@ export class OrderViewComponent implements OnInit {
   public status: string[] = ['Pending', 'Canceled', 'Shipped'];
   public cardType: string[] = ['VISA', 'MasterCard', 'Discover', 'American Express'];
   public error: boolean = false;
+  public webAppUrl = environment.webAppUrl;
 
   constructor(
     private orderService: OrderService,
