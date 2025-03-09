@@ -5,7 +5,6 @@
 .firebase/
 
 .firebaserc
-firebase.json
 
 # Compiled output
 /dist
@@ -48,4 +47,3 @@ testem.log
 .DS_Store
 Thumbs.db
 .firebaserc
-firebase.json
