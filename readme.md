@@ -17,4 +17,4 @@ This project was created as our term project for CS 4389 at the University of Te
 
 ## Implementation
 
-The project is visible at [https://bookstore-6bd1d.web.app/](https://bookstore-6bd1d.web.app/). Please do check it out.
+The project is visible at [https://btl.zacharyjbaldwin.com/](https://btl.zacharyjbaldwin.com/). Please do check it out.
